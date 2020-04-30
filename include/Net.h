@@ -12,6 +12,9 @@ class Net {
 public:
   int layer_num_;
   int batch_num_;
+  int input_num_;
+  int output_num_;
+  int hidden_num_;
   float base_learning_rate_;
   float momentum_;
   vector<float> gt_;
@@ -29,10 +32,11 @@ public:
 };
 
 Net::Net() {
-  input_.resize(2);
-  input_.resize(2);
-  gt_.resize(2);
-  gt_.resize(2);
+  output_num_ = 1;
+  hidden_num_ = 2;
+  input_num_ = 2;
+  input_.resize(input_num_);
+  gt_.resize(input_num_);
   data_.resize(1000);
   for(int i = 0; i < 1000; ++i) {
     data_[i] = i/1000.0;
@@ -40,9 +44,9 @@ Net::Net() {
   layer_num_ = 2;
   base_learning_rate_ = 0.5;
   // SimpleLayer tmp1(2, 2, 0.35);
-  layers_.push_back(new SimpleLayer(2, 2, base_learning_rate_,1));
+  layers_.push_back(new SimpleLayer(input_num_, hidden_num_, base_learning_rate_));
   // SimpleLayer tmp2(2, 2, 0.6);
-  layers_.push_back(new SimpleLayer(2, 2, base_learning_rate_,2));
+  layers_.push_back(new SimpleLayer(hidden_num_, output_num_, base_learning_rate_));
 }
 
 void Net::Forward() {

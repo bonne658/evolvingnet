@@ -6,7 +6,7 @@
 
 class SimpleLayer:public Layer {
 public:
-  SimpleLayer(int ic, int oc, float bias, int flag);
+  SimpleLayer(int ic, int oc, float lr);
   virtual void Forward(vector<float> input);
   virtual void BackWard(vector<float> delta);
   float Sigmoid(float z) {
@@ -14,29 +14,17 @@ public:
   }
 };
 
-SimpleLayer::SimpleLayer(int ic, int oc, float lr, int flag) {
+SimpleLayer::SimpleLayer(int ic, int oc, float lr) {
   ic_ = ic;
   oc_ = oc;
   lr_ = lr;
-  if(flag == 1) bias_.resize(oc, 0.35);
-  else bias_.resize(oc, 0.6);
+  bias_.resize(oc, 0.6);
   // w11,w12...w1n,w21,w22...w2n...
   weight_.resize(ic*oc);
   input_.resize(ic);
   output_.resize(oc);
-  // for(int i = 0; i< ic*oc; ++i) {
-  //   weight_[i] = 0.25 + 0.15 * i;
-  // }
-  if(flag == 1) {
-    weight_[0] = 0.5;
-    weight_[1] = 0.51;
-    weight_[2] = 0.51;
-    weight_[3] = 0.5;
-  } else {
-    weight_[0] = 0.5;
-    weight_[1] = 0.51;
-    weight_[2] = 0.51;
-    weight_[3] = 0.5;
+  for(int i = 0; i< ic*oc; ++i) {
+    weight_[i] = 0.12 + 0.07 * i;
   }
 }
 
