@@ -1,8 +1,11 @@
 #include <Net.h>
+#include <Test.h>
 
 int main() {
     Net n;
     n.Train();
-    n.Test(0.9, 0.01);
+    n.Test();
+    // Test t;
+    // t.Train();
     return 0;
 }
